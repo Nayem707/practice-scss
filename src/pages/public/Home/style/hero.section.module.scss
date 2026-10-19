@@ -9,16 +9,17 @@
 // Intro sequence (steps × $hero-stagger): eyebrow 0 → title lines 1–2 → gradient 3 →
 // lead 4 → CTAs 5 → tech stack 6. The orbit visual starts at step 2.
 .hero {
-  // Pin the dark palette so nested components (Button, ButtonLink) render dark in
-  // either app theme. The rest of the page keeps following the user's theme.
-  @include theme-palette($theme-dark);
+  @include theme-palette($hero-theme-light);
   position: relative;
   isolation: isolate;
   overflow: hidden;
   overflow: clip;
   color: var(--color-text);
-  color-scheme: dark;
   background-color: $hero-bg;
+
+  :global([data-theme='dark']) & {
+    @include theme-palette($hero-theme-dark);
+  }
 
   &__inner {
     display: grid;
@@ -58,7 +59,7 @@
     position: relative;
     flex-shrink: 0;
     @include square(0.5rem);
-    background-color: $hero-cyan;
+    background-color: var(--hero-pulse);
     border-radius: 50%;
 
     &::after {
@@ -165,7 +166,7 @@
 
     svg {
       @include square($icon-size-sm);
-      color: $hero-indigo-light;
+      color: $hero-accent;
     }
 
     @include can-hover {

@@ -11,9 +11,6 @@ export const BREAKPOINTS = {
 export const MEDIA_QUERIES = {
   DESKTOP: `(min-width: ${BREAKPOINTS.LG}px)`,
   PREFERS_DARK: '(prefers-color-scheme: dark)',
-  REDUCED_MOTION: '(prefers-reduced-motion: reduce)',
-  /** Mouse/trackpad: pointer-driven effects are skipped on touch screens. */
-  FINE_POINTER: '(hover: hover) and (pointer: fine)',
 } as const;
 
 export const STORAGE_KEYS = {
