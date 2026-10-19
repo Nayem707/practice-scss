@@ -16,14 +16,6 @@
   animation-delay: $hero-intro-delay + $step * $hero-stagger;
 }
 
-/// Pointer parallax. `--pointer-x` / `--pointer-y` (-1…1) are set on `.hero` by
-/// usePointerParallax; uses the independent `translate` property so it composes with
-/// keyframed `transform`s on the same element.
-@mixin hero-parallax($depth) {
-  translate: calc(var(--pointer-x, 0) * #{$depth}) calc(var(--pointer-y, 0) * #{$depth});
-  transition: translate $hero-parallax-duration $hero-ease-out;
-}
-
 /// Hover styles only for devices that can hover (avoids sticky hover on touch).
 @mixin can-hover {
   @media (hover: hover) {
