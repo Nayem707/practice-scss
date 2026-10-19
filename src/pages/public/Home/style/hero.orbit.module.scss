@@ -35,7 +35,6 @@
       transparent 70%
     );
     border-radius: 50%;
-    @include hero-parallax(6px);
   }
 
   &__core {
@@ -43,7 +42,6 @@
     top: 36%;
     left: 36%;
     @include square(28%);
-    @include hero-parallax(16px);
   }
 
   &__coreSphere {
@@ -73,7 +71,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    border: $border-width solid rgb(255 255 255 / 14%);
+    border: $border-width solid var(--hero-ring);
     border-radius: 50%;
     // Resting pose matches the keyframes, so the tilt survives disabled animations.
     transform: rotateX(var(--ring-tilt-x)) rotateY(var(--ring-tilt-y));
@@ -86,7 +84,6 @@
       @include square(54%);
       margin: -27%;
       animation-duration: 14s;
-      @include hero-parallax(12px);
     }
 
     &--middle {
@@ -94,10 +91,9 @@
       --ring-tilt-y: 18deg;
       @include square(76%);
       margin: -38%;
-      border-color: rgb(165 180 252 / 22%);
+      border-color: var(--hero-ring-accent);
       animation-duration: 22s;
       animation-direction: reverse;
-      @include hero-parallax(8px);
     }
 
     &--outer {
@@ -106,9 +102,8 @@
       @include square(98%);
       margin: -49%;
       border-style: dashed;
-      border-color: rgb(255 255 255 / 9%);
+      border-color: var(--hero-ring-faint);
       animation-duration: 40s;
-      @include hero-parallax(4px);
     }
   }
 
@@ -130,21 +125,20 @@
     &--small {
       @include square(0.5rem);
       margin: -0.25rem;
-      background-color: #fff;
-      box-shadow: 0 0 0.75rem rgb(255 255 255 / 80%);
+      background-color: $hero-star;
+      box-shadow: 0 0 0.75rem $hero-star;
     }
   }
 
   // ---------------------------------------------------------------------------
-  // Floating geometry
+  // Static geometry
   // ---------------------------------------------------------------------------
   &__shape {
     position: absolute;
-    transform: rotate(var(--float-rotate, 0deg));
-    animation: float 9s $hero-ease-in-out infinite;
+    transform: rotate(var(--shape-rotate, 0deg));
 
     &--cube {
-      --float-rotate: 18deg;
+      --shape-rotate: 18deg;
       top: 6%;
       left: 8%;
       @include square(14%);
@@ -152,36 +146,27 @@
       border: $border-width solid rgb(165 180 252 / 35%);
       border-radius: 22%;
       box-shadow: inset 0 0 1.5rem rgb(129 140 248 / 20%);
-      @include hero-parallax(26px);
     }
 
     &--triangle {
-      --float-rotate: -12deg;
-      --float-distance: 0.75rem;
+      --shape-rotate: -12deg;
       right: 4%;
       bottom: 22%;
       @include square(12%);
       background: linear-gradient(160deg, rgb(34 211 238 / 55%), rgb(34 211 238 / 0%));
       clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-      animation-duration: 11s;
-      animation-delay: -3s;
-      @include hero-parallax(32px);
     }
 
     &--donut {
-      --float-spin: -10deg;
       top: 14%;
       right: 10%;
       @include square(9%);
       border: 0.3rem solid rgb(192 132 252 / 50%);
       border-radius: 50%;
-      animation-duration: 8s;
-      animation-delay: -5s;
-      @include hero-parallax(20px);
     }
 
     &--pill {
-      --float-rotate: 35deg;
+      --shape-rotate: 35deg;
       bottom: 8%;
       left: 34%;
       width: 12%;
@@ -189,9 +174,6 @@
       background: linear-gradient(90deg, $hero-indigo-light, $hero-violet);
       border-radius: var(--radius-full);
       opacity: 0.55;
-      animation-duration: 10s;
-      animation-delay: -2s;
-      @include hero-parallax(36px);
     }
 
     // Extra shapes would crowd the small mobile stage.
@@ -206,12 +188,9 @@
   }
 
   // ---------------------------------------------------------------------------
-  // Floating status card + chip
-  // No backdrop-filter: it would repaint every frame while the card floats.
+  // Status card + chip
   // ---------------------------------------------------------------------------
   &__card {
-    --float-distance: -0.5rem;
-    --float-spin: 0deg;
     position: absolute;
     bottom: 10%;
     left: -2%;
@@ -221,13 +200,7 @@
     border: $border-width solid $hero-glass-border;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-    animation:
-      fade-up $hero-enter-duration $hero-ease-out both,
-      float 8s $hero-ease-in-out infinite;
-    animation-delay:
-      $hero-intro-delay + 7 * $hero-stagger,
-      0s;
-    @include hero-parallax(22px);
+    @include hero-enter(fade-up, 7);
 
     @include respond-to(lg) {
       left: -8%;
@@ -290,7 +263,6 @@
     border: $border-width solid $hero-glass-border;
     border-radius: var(--radius-full);
     @include hero-enter(fade-up, 8);
-    @include hero-parallax(28px);
 
     @include respond-to(lg) {
       right: -4%;

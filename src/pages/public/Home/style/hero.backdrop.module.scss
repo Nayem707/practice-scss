@@ -33,8 +33,8 @@ $particles: (
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(110% 70% at 75% -10%, rgb(67 56 202 / 45%), transparent 60%),
-    radial-gradient(80% 60% at -10% 110%, rgb(8 145 178 / 25%), transparent 60%),
+    radial-gradient(110% 70% at 75% -10%, var(--hero-tint-primary), transparent 60%),
+    radial-gradient(80% 60% at -10% 110%, var(--hero-tint-secondary), transparent 60%),
     linear-gradient(180deg, $hero-bg 0%, $hero-bg-raised 55%, $hero-bg 100%);
 
   // Fine grid, faded out towards the edges so it reads as depth, not pattern.
@@ -46,7 +46,6 @@ $particles: (
       linear-gradient(90deg, $hero-line 1px, transparent 1px);
     background-size: 3.5rem 3.5rem;
     mask-image: radial-gradient(ellipse 65% 55% at 62% 42%, #000 20%, transparent 75%);
-    @include hero-parallax(-6px);
   }
 
   // Soft light sources. Radial gradients are already soft, so no `filter: blur()`
@@ -54,7 +53,7 @@ $particles: (
   &__aurora {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.7;
+    opacity: var(--hero-aurora-opacity);
     will-change: transform;
     animation: drift 22s $hero-ease-in-out infinite alternate;
 
@@ -92,12 +91,11 @@ $particles: (
   &__particles {
     position: absolute;
     inset: 0;
-    @include hero-parallax(10px);
   }
 
   &__particle {
     position: absolute;
-    background-color: #fff;
+    background-color: $hero-star;
     border-radius: 50%;
     animation: twinkle 5s ease-in-out infinite both;
 
@@ -117,7 +115,7 @@ $particles: (
   &__vignette {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(0 0 0 / 55%));
+    background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, var(--hero-vignette));
   }
 
   &__horizon {

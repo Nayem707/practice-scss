@@ -2,24 +2,74 @@
 // Global tokens (spacing, type scale, theme colors) still come from src/styles.
 @use '@/styles/variables' as *;
 
-// Palette — the hero is always dark (see .hero in hero.section.module.scss)
-$hero-bg: #060912;
-$hero-bg-raised: #0b1020;
+// Accents — identical in both themes (planets, core sphere, bars, pill)
 $hero-indigo: #6366f1;
 $hero-indigo-light: #a5b4fc;
 $hero-violet: #c084fc;
 $hero-cyan: #22d3ee;
-$hero-line: rgb(255 255 255 / 7%);
-$hero-glass: rgb(255 255 255 / 4%);
-$hero-glass-border: rgb(255 255 255 / 12%);
-$hero-card-bg: rgb(13 18 32 / 88%);
+
+// Themed palette — emitted as --hero-* on .hero (light by default, dark under
+// [data-theme='dark']) and inherited by the backdrop and orbit modules.
+$hero-theme-light: (
+  hero-bg: #f5f7ff,
+  hero-bg-raised: #eceffe,
+  hero-tint-primary: rgb(99 102 241 / 22%),
+  hero-tint-secondary: rgb(34 211 238 / 16%),
+  hero-aurora-opacity: 0.45,
+  hero-line: rgb(15 23 42 / 6%),
+  hero-glass: rgb(255 255 255 / 65%),
+  hero-glass-border: rgb(15 23 42 / 10%),
+  hero-card-bg: rgb(255 255 255 / 92%),
+  hero-accent: #4f46e5,
+  hero-pulse: #0891b2,
+  hero-star: #6366f1,
+  hero-vignette: rgb(15 23 42 / 6%),
+  hero-ring: rgb(15 23 42 / 14%),
+  hero-ring-accent: rgb(79 70 229 / 28%),
+  hero-ring-faint: rgb(15 23 42 / 10%),
+  // Darker stops keep the gradient headline readable on the light background.
+  hero-text-gradient-1: #4f46e5,
+  hero-text-gradient-2: #9333ea,
+  hero-text-gradient-3: #0891b2,
+);
+
+$hero-theme-dark: (
+  hero-bg: #060912,
+  hero-bg-raised: #0b1020,
+  hero-tint-primary: rgb(67 56 202 / 45%),
+  hero-tint-secondary: rgb(8 145 178 / 25%),
+  hero-aurora-opacity: 0.7,
+  hero-line: rgb(255 255 255 / 7%),
+  hero-glass: rgb(255 255 255 / 4%),
+  hero-glass-border: rgb(255 255 255 / 12%),
+  hero-card-bg: rgb(13 18 32 / 88%),
+  hero-accent: #a5b4fc,
+  hero-pulse: #22d3ee,
+  hero-star: #ffffff,
+  hero-vignette: rgb(0 0 0 / 55%),
+  hero-ring: rgb(255 255 255 / 14%),
+  hero-ring-accent: rgb(165 180 252 / 22%),
+  hero-ring-faint: rgb(255 255 255 / 9%),
+  hero-text-gradient-1: #a5b4fc,
+  hero-text-gradient-2: #c084fc,
+  hero-text-gradient-3: #22d3ee,
+);
+
+$hero-bg: var(--hero-bg);
+$hero-bg-raised: var(--hero-bg-raised);
+$hero-line: var(--hero-line);
+$hero-glass: var(--hero-glass);
+$hero-glass-border: var(--hero-glass-border);
+$hero-card-bg: var(--hero-card-bg);
+$hero-accent: var(--hero-accent);
+$hero-star: var(--hero-star);
 
 $hero-gradient: linear-gradient(
   100deg,
-  $hero-indigo-light 0%,
-  $hero-violet 30%,
-  $hero-cyan 60%,
-  $hero-indigo-light 100%
+  var(--hero-text-gradient-1) 0%,
+  var(--hero-text-gradient-2) 30%,
+  var(--hero-text-gradient-3) 60%,
+  var(--hero-text-gradient-1) 100%
 );
 
 // Type & layout
@@ -38,4 +88,3 @@ $hero-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 $hero-enter-duration: 900ms;
 $hero-intro-delay: 120ms;
 $hero-stagger: 110ms;
-$hero-parallax-duration: 700ms;
