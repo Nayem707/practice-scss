@@ -8,7 +8,7 @@ export const HERO_CONTENT: HeroContent = {
   titleLines: ['Ship polished', 'products,', 'faster.'],
   lead: APP_CONFIG.description,
   primaryCta: { label: 'Get started', to: ROUTES.AUTH.SIGNUP },
-  secondaryCta: { label: 'Learn more', to: ROUTES.PUBLIC.ABOUT },
+  secondaryCta: { label: `About ${APP_CONFIG.name}`, to: ROUTES.PUBLIC.ABOUT },
   stackLabel: 'Built with',
   techs: [
     { label: 'React 19', icon: Atom },

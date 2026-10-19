@@ -48,20 +48,10 @@ const HeroSection = () => {
           <p className={styles.hero__lead}>{lead}</p>
 
           <div className={styles.hero__ctas}>
-            <ButtonLink
-              to={primaryCta.to}
-              size="lg"
-              rightIcon={<ArrowRight />}
-              className={cn(styles.hero__cta, styles['hero__cta--primary'])}
-            >
+            <ButtonLink to={primaryCta.to} size="lg" rightIcon={<ArrowRight />}>
               {primaryCta.label}
             </ButtonLink>
-            <ButtonLink
-              to={secondaryCta.to}
-              size="lg"
-              variant="secondary"
-              className={cn(styles.hero__cta, styles['hero__cta--glass'])}
-            >
+            <ButtonLink to={secondaryCta.to} size="lg" variant="secondary">
               {secondaryCta.label}
             </ButtonLink>
           </div>

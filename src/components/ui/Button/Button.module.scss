@@ -1,4 +1,37 @@
+$button-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$button-lift: -2px;
+$button-icon-nudge: 3px;
+$button-shine-duration: 700ms;
+
+/// Hover state for enabled buttons on devices that can actually hover.
+@mixin enabled-hover {
+  @media (hover: hover) {
+    &:hover:not(:disabled, [aria-disabled='true']) {
+      @content;
+    }
+  }
+}
+
+/// Lift on hover, press on click, nudge a trailing icon. Used by the solid variants;
+/// ghost buttons (toolbar/icon actions) stay still.
+@mixin interactive-motion {
+  @include enabled-hover {
+    transform: translateY($button-lift);
+
+    > span:last-child:not(:first-child) svg {
+      transform: translateX($button-icon-nudge);
+    }
+  }
+
+  &:active:not(:disabled, [aria-disabled='true']) {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
 .button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -11,6 +44,8 @@
   text-decoration: none;
   cursor: pointer;
   transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
     background-color var(--transition-fast),
     border-color var(--transition-fast),
     color var(--transition-fast);
@@ -27,23 +62,63 @@
     cursor: not-allowed;
   }
 
+  svg {
+    transition: transform var(--transition-base);
+  }
+
   // Variants
+  // Gradient + glow + light sweep. Every gradient stop keeps ≥ 4.5:1 contrast with
+  // --color-on-primary; background-color stays as the fallback.
   &--primary {
     color: var(--color-on-primary);
     background-color: var(--color-primary);
+    background-image: linear-gradient(
+      135deg,
+      var(--color-primary-gradient-start) 0%,
+      var(--color-primary) 45%,
+      var(--color-primary-gradient-end) 100%
+    );
+    box-shadow:
+      inset 0 0 0 $border-width rgb(255 255 255 / 18%),
+      0 0.75rem 2rem -0.75rem var(--color-primary-glow);
+    @include interactive-motion;
 
-    &:hover:not(:disabled) {
+    // Sits above the gradient, below the label (the button is its own stacking context).
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        115deg,
+        transparent 30%,
+        rgb(255 255 255 / 35%) 50%,
+        transparent 70%
+      );
+      transform: translateX(-120%);
+      transition: transform $button-shine-duration $button-ease-out;
+    }
+
+    @include enabled-hover {
       background-color: var(--color-primary-hover);
+      box-shadow:
+        inset 0 0 0 $border-width rgb(255 255 255 / 24%),
+        0 1rem 2.5rem -0.75rem var(--color-primary-glow);
+
+      &::after {
+        transform: translateX(120%);
+      }
     }
   }
 
   &--secondary {
     color: var(--color-text);
-    background-color: var(--color-surface);
-    border-color: var(--color-border);
+    background-color: var(--color-glass);
+    border-color: var(--color-glass-border);
+    @include interactive-motion;
 
-    &:hover:not(:disabled) {
-      background-color: var(--color-surface-muted);
+    @include enabled-hover {
+      background-color: var(--color-glass-hover);
     }
   }
 
@@ -51,7 +126,7 @@
     color: var(--color-text);
     background-color: transparent;
 
-    &:hover:not(:disabled) {
+    @include enabled-hover {
       background-color: var(--color-surface-muted);
     }
   }
@@ -59,8 +134,9 @@
   &--danger {
     color: var(--color-on-danger);
     background-color: var(--color-danger);
+    @include interactive-motion;
 
-    &:hover:not(:disabled) {
+    @include enabled-hover {
       background-color: var(--color-danger-hover);
     }
   }
