@@ -1,0 +1,22 @@
+.introSection {
+  @include flex-column(var(--space-4));
+
+  &__title {
+    font-size: var(--font-size-3xl);
+  }
+
+  &__lead {
+    color: var(--color-text-muted);
+  }
+
+  &__email {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: var(--font-weight-medium);
+  }
+
+  &__emailIcon {
+    @include square($icon-size-md);
+  }
+}

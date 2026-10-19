@@ -1,0 +1,31 @@
+// Emits the token maps from _variables.scss as CSS custom properties.
+@use 'sass:meta';
+@use 'variables' as *;
+@use 'mixins' as *;
+
+@mixin emit-tokens($prefix, $tokens) {
+  @each $key, $value in $tokens {
+    --#{$prefix}-#{$key}: #{meta.inspect($value)};
+  }
+}
+
+:root {
+  @include emit-tokens('space', $spacing);
+  @include emit-tokens('radius', $radii);
+  @include emit-tokens('font-family', $font-families);
+  @include emit-tokens('font-size', $font-sizes);
+  @include emit-tokens('font-weight', $font-weights);
+  @include emit-tokens('line-height', $line-heights);
+  @include emit-tokens('transition', $transitions);
+}
+
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  @include theme-palette($theme-light);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  @include theme-palette($theme-dark);
+}

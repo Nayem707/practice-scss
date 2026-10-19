@@ -1,0 +1,35 @@
+.alert {
+  @include flex($align: flex-start, $gap: var(--space-3));
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--font-size-sm);
+  border: $border-width solid currentColor;
+  border-radius: var(--radius-md);
+
+  &--info {
+    color: var(--color-info);
+    background-color: var(--color-info-soft);
+  }
+
+  &--success {
+    color: var(--color-success);
+    background-color: var(--color-success-soft);
+  }
+
+  &--danger {
+    color: var(--color-danger);
+    background-color: var(--color-danger-soft);
+  }
+
+  &__icon {
+    flex-shrink: 0;
+    @include square($icon-size-md);
+  }
+
+  &__title {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__content {
+    color: var(--color-text);
+  }
+}

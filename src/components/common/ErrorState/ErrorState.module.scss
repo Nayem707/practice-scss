@@ -1,0 +1,31 @@
+.errorState {
+  @include flex-column(var(--space-3));
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-4);
+  text-align: center;
+
+  &--full-screen {
+    min-height: 100vh;
+  }
+
+  &__icon {
+    @include square($icon-size-xl);
+    color: var(--color-danger);
+  }
+
+  &__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  &__message {
+    max-width: $prose-max-width;
+    color: var(--color-text-muted);
+  }
+
+  &__actions {
+    @include flex($justify: center, $gap: var(--space-3));
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+}

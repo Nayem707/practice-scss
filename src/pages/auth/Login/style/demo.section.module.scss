@@ -1,0 +1,21 @@
+.demoSection {
+  &__list {
+    @include reset-list;
+    @include flex-column(var(--space-1));
+    margin-top: var(--space-2);
+  }
+
+  &__item {
+    @include flex-between;
+    gap: var(--space-2);
+  }
+
+  &__fillButton {
+    @include reset-button;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-primary);
+    text-decoration: underline;
+
+    @include focus-visible;
+  }
+}

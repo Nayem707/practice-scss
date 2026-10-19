@@ -1,0 +1,116 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  border: $border-width solid transparent;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-none);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+
+  @include focus-visible;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: $opacity-disabled;
+    cursor: not-allowed;
+  }
+
+  // Variants
+  &--primary {
+    color: var(--color-on-primary);
+    background-color: var(--color-primary);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-primary-hover);
+    }
+  }
+
+  &--secondary {
+    color: var(--color-text);
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-surface-muted);
+    }
+  }
+
+  &--ghost {
+    color: var(--color-text);
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-surface-muted);
+    }
+  }
+
+  &--danger {
+    color: var(--color-on-danger);
+    background-color: var(--color-danger);
+
+    &:hover:not(:disabled) {
+      background-color: var(--color-danger-hover);
+    }
+  }
+
+  // Sizes
+  &--sm {
+    height: $control-height-sm;
+    padding-inline: var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+
+  &--md {
+    height: $control-height-md;
+    padding-inline: var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+
+  &--lg {
+    height: $control-height-lg;
+    padding-inline: var(--space-6);
+    font-size: var(--font-size-md);
+  }
+
+  // Modifiers
+  &--icon-only {
+    padding-inline: 0;
+
+    &.button--sm {
+      width: $control-height-sm;
+    }
+
+    &.button--md {
+      width: $control-height-md;
+    }
+
+    &.button--lg {
+      width: $control-height-lg;
+    }
+  }
+
+  &--full-width {
+    width: 100%;
+  }
+
+  &__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+
+    svg {
+      @include square($icon-size-sm);
+    }
+  }
+}

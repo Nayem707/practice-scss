@@ -1,0 +1,42 @@
+// Hero-only design tokens, shared by the hero's module files via `@use 'hero-tokens' as *`.
+// Global tokens (spacing, type scale, theme colors) still come from src/styles.
+@use '@/styles/variables' as *;
+
+// Palette — the hero is always dark (see .hero in hero.section.module.scss)
+$hero-bg: #060912;
+$hero-bg-raised: #0b1020;
+$hero-indigo: #6366f1;
+$hero-indigo-light: #a5b4fc;
+$hero-violet: #c084fc;
+$hero-cyan: #22d3ee;
+$hero-line: rgb(255 255 255 / 7%);
+$hero-glass: rgb(255 255 255 / 4%);
+$hero-glass-strong: rgb(255 255 255 / 8%);
+$hero-glass-border: rgb(255 255 255 / 12%);
+$hero-card-bg: rgb(13 18 32 / 88%);
+
+$hero-gradient: linear-gradient(
+  100deg,
+  $hero-indigo-light 0%,
+  $hero-violet 30%,
+  $hero-cyan 60%,
+  $hero-indigo-light 100%
+);
+
+// Type & layout
+$hero-title-size: clamp(2.5rem, 1.35rem + 4.8vw, 4.75rem);
+$hero-title-line-height: 1.04;
+$hero-title-tracking: -0.035em;
+$hero-content-max-width: 38rem;
+$hero-visual-max-width: 34rem;
+$hero-visual-max-width-mobile: 22rem;
+$hero-min-height: calc(100vh - #{$navbar-height});
+$hero-min-height-dynamic: calc(100svh - #{$navbar-height});
+
+// Motion
+$hero-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$hero-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+$hero-enter-duration: 900ms;
+$hero-intro-delay: 120ms;
+$hero-stagger: 110ms;
+$hero-parallax-duration: 700ms;

@@ -1,0 +1,50 @@
+.card {
+  @include flex-column;
+  background-color: var(--color-surface);
+  border: $border-width solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+
+  &__header,
+  &__footer {
+    @include flex-between;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  &__header {
+    border-bottom: $border-width solid var(--color-border);
+  }
+
+  &__footer {
+    justify-content: flex-end;
+    background-color: var(--color-surface-muted);
+    border-top: $border-width solid var(--color-border);
+  }
+
+  &__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__actions {
+    @include flex($align: center, $gap: var(--space-2));
+  }
+
+  &__body {
+    flex: 1;
+
+    &--padding-none {
+      padding: 0;
+    }
+
+    &--padding-md {
+      padding: var(--space-5);
+    }
+
+    &--padding-lg {
+      padding: var(--space-8);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.input {
+  width: 100%;
+  height: $control-height-md;
+  padding-inline: var(--space-3);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: $border-width solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+
+  &::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  &:focus-visible {
+    border-color: var(--color-primary);
+    @include focus-ring;
+  }
+
+  &:disabled {
+    opacity: $opacity-disabled;
+    cursor: not-allowed;
+  }
+
+  &--invalid {
+    border-color: var(--color-danger);
+  }
+}

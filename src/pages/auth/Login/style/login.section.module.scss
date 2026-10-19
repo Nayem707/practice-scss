@@ -1,0 +1,4 @@
+// Page shell shared by every Login section: sections stacked inside the auth card.
+.sections {
+  @include flex-column(var(--space-5));
+}

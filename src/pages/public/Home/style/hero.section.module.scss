@@ -1,0 +1,253 @@
+@use 'hero-tokens' as *;
+@use 'hero-motion' as *;
+
+@include keyframes-fade-up;
+@include keyframes-reveal-up;
+@include keyframes-gradient-sweep;
+@include keyframes-pulse-ring;
+
+// Intro sequence (steps × $hero-stagger): eyebrow 0 → title lines 1–2 → gradient 3 →
+// lead 4 → CTAs 5 → tech stack 6. The orbit visual starts at step 2.
+.hero {
+  // Pin the dark palette so nested components (Button, ButtonLink) render dark in
+  // either app theme. The rest of the page keeps following the user's theme.
+  @include theme-palette($theme-dark);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  overflow: clip;
+  color: var(--color-text);
+  color-scheme: dark;
+  background-color: $hero-bg;
+
+  &__inner {
+    display: grid;
+    align-items: center;
+    gap: var(--space-12);
+
+    @include respond-to(lg) {
+      --section-padding-block: var(--space-16);
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: var(--space-8);
+      min-height: $hero-min-height;
+      min-height: $hero-min-height-dynamic;
+    }
+  }
+
+  &__content {
+    @include flex-column(var(--space-6));
+    align-items: flex-start;
+    max-width: $hero-content-max-width;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Eyebrow badge
+  // ---------------------------------------------------------------------------
+  &__eyebrow {
+    @include flex($align: center, $gap: var(--space-2));
+    @include hero-enter(fade-up, 0);
+    padding: var(--space-1) var(--space-3) var(--space-1) var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    background-color: $hero-glass;
+    border: $border-width solid $hero-glass-border;
+    border-radius: var(--radius-full);
+  }
+
+  &__pulse {
+    position: relative;
+    flex-shrink: 0;
+    @include square(0.5rem);
+    background-color: $hero-cyan;
+    border-radius: 50%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-color: inherit;
+      border-radius: inherit;
+      animation: pulse-ring 2.4s $hero-ease-out infinite;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Headline: each line slides up from behind its own mask
+  // ---------------------------------------------------------------------------
+  &__title {
+    font-size: $hero-title-size;
+    font-weight: var(--font-weight-bold);
+    line-height: $hero-title-line-height;
+    letter-spacing: $hero-title-tracking;
+  }
+
+  &__line {
+    display: block;
+    overflow: hidden;
+    // Room for descenders inside the mask without changing line spacing.
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
+
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) > * {
+        @include hero-enter(reveal-up, $i);
+      }
+    }
+  }
+
+  &__lineText {
+    display: inline-block;
+  }
+
+  &__highlight {
+    background-image: $hero-gradient;
+    background-size: 250% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-sweep 2.4s $hero-ease-in-out both;
+    animation-delay: $hero-intro-delay + 3 * $hero-stagger;
+  }
+
+  &__lead {
+    @include hero-enter(fade-up, 4);
+    max-width: $prose-max-width;
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+
+    @include respond-to(md) {
+      font-size: var(--font-size-xl);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // CTAs — extend the shared ButtonLink through tokens and extra layers only, so
+  // the base Button styles stay authoritative.
+  // ---------------------------------------------------------------------------
+  &__ctas {
+    @include flex($align: center, $gap: var(--space-3));
+    @include hero-enter(fade-up, 5);
+    flex-wrap: wrap;
+  }
+
+  &__ctas &__cta {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base),
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+
+    svg {
+      transition: transform var(--transition-base);
+    }
+
+    @include can-hover {
+      transform: translateY(-2px);
+
+      svg {
+        transform: translateX(3px);
+      }
+    }
+
+    &:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    &:focus-visible {
+      box-shadow: 0 0 0 0.375rem rgb(129 140 248 / 25%);
+    }
+  }
+
+  &__ctas &__cta--primary {
+    background-image: linear-gradient(
+      135deg,
+      $hero-indigo-light -20%,
+      $hero-indigo 45%,
+      $hero-violet
+    );
+    box-shadow:
+      inset 0 0 0 $border-width rgb(255 255 255 / 18%),
+      0 0.75rem 2rem -0.75rem rgb(99 102 241 / 70%);
+
+    // Light sweep on hover; sits above the gradient but below the label.
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(
+        115deg,
+        transparent 30%,
+        rgb(255 255 255 / 35%) 50%,
+        transparent 70%
+      );
+      transform: translateX(-120%);
+      transition: transform 700ms $hero-ease-out;
+    }
+
+    @include can-hover {
+      box-shadow:
+        inset 0 0 0 $border-width rgb(255 255 255 / 24%),
+        0 1rem 2.5rem -0.75rem rgb(129 140 248 / 85%);
+
+      &::after {
+        transform: translateX(120%);
+      }
+    }
+  }
+
+  // Glass variant: retune the tokens the secondary Button already reads.
+  &__ctas &__cta--glass {
+    --color-surface: #{$hero-glass};
+    --color-surface-muted: #{$hero-glass-strong};
+    --color-border: #{$hero-glass-border};
+  }
+
+  // ---------------------------------------------------------------------------
+  // Tech stack indicators
+  // ---------------------------------------------------------------------------
+  &__stack {
+    @include flex-column(var(--space-3));
+    @include hero-enter(fade-up, 6);
+    padding-top: var(--space-2);
+  }
+
+  &__stackLabel {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  &__techList {
+    @include reset-list;
+    @include flex($align: center, $gap: var(--space-2));
+    flex-wrap: wrap;
+  }
+
+  &__techItem {
+    @include flex($align: center, $gap: var(--space-2));
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    background-color: $hero-glass;
+    border: $border-width solid $hero-line;
+    border-radius: var(--radius-full);
+    transition: border-color var(--transition-base);
+
+    svg {
+      @include square($icon-size-sm);
+      color: $hero-indigo-light;
+    }
+
+    @include can-hover {
+      border-color: $hero-glass-border;
+    }
+  }
+}

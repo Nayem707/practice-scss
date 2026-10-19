@@ -1,0 +1,11 @@
+@use 'mixins' as *;
+
+// Global, framework-agnostic helper classes. Keep this list short.
+.visually-hidden {
+  @include visually-hidden;
+}
+
+// Toggled on <body> by useBodyScrollLock while a modal or drawer is open.
+.is-scroll-locked {
+  overflow: hidden;
+}

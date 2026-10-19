@@ -1,0 +1,11 @@
+.accountSection {
+  &__row {
+    @include flex-between;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  &__text {
+    color: var(--color-text-muted);
+  }
+}

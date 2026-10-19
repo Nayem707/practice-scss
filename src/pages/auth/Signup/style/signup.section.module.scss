@@ -1,0 +1,4 @@
+// Page shell shared by every Signup section: sections stacked inside the auth card.
+.sections {
+  @include flex-column(var(--space-5));
+}

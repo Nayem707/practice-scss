@@ -1,0 +1,5 @@
+.formSection {
+  &__form {
+    @include flex-column(var(--space-4));
+  }
+}

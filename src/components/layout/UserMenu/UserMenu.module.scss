@@ -1,0 +1,97 @@
+.userMenu {
+  position: relative;
+
+  &__trigger {
+    @include reset-button;
+    @include flex($align: center, $gap: var(--space-2));
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
+
+    &:hover {
+      background-color: var(--color-surface-muted);
+    }
+
+    @include focus-visible;
+  }
+
+  &__avatar {
+    @include flex-center;
+    @include square($control-height-sm);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-on-primary);
+    background-color: var(--color-primary);
+    border-radius: var(--radius-full);
+  }
+
+  &__name {
+    display: none;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+
+    @include respond-to(md) {
+      display: inline;
+    }
+  }
+
+  &__chevron {
+    @include square($icon-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__panel {
+    position: absolute;
+    top: calc(100% + var(--space-2));
+    right: 0;
+    z-index: z(dropdown);
+    min-width: $sidebar-width;
+    background-color: var(--color-surface);
+    border: $border-width solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+
+  &__identity {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: $border-width solid var(--color-border);
+  }
+
+  &__identityName {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__identityEmail {
+    @include truncate;
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+  }
+
+  &__list {
+    @include reset-list;
+    padding: var(--space-1);
+  }
+
+  &__item {
+    @include reset-button;
+    @include flex($align: center, $gap: var(--space-2));
+    width: 100%;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    text-align: left;
+    border-radius: var(--radius-md);
+
+    svg {
+      @include square($icon-size-sm);
+    }
+
+    &:hover {
+      text-decoration: none;
+      background-color: var(--color-surface-muted);
+    }
+
+    @include focus-visible;
+  }
+}

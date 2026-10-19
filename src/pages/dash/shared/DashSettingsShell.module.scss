@@ -1,0 +1,5 @@
+.dashSettingsShell {
+  &__sections {
+    @include flex-column(var(--space-6));
+  }
+}

@@ -1,0 +1,15 @@
+.buttonLink {
+  &:hover,
+  &:focus-visible {
+    text-decoration: none;
+  }
+
+  &__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+
+    svg {
+      @include square($icon-size-sm);
+    }
+  }
+}

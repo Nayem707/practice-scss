@@ -1,0 +1,83 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: z(sticky);
+  background-color: var(--color-surface);
+  border-bottom: $border-width solid var(--color-border);
+
+  &__inner {
+    @include container;
+    @include flex-between;
+    position: relative;
+    gap: var(--space-4);
+    height: $navbar-height;
+  }
+
+  // Mobile: hidden until toggled open as a dropdown panel.
+  &__nav {
+    display: none;
+
+    &--open {
+      position: absolute;
+      top: $navbar-height;
+      right: 0;
+      left: 0;
+      display: block;
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--color-surface);
+      border-bottom: $border-width solid var(--color-border);
+      box-shadow: var(--shadow-md);
+    }
+
+    // Desktop: always visible, inline in the bar.
+    @include respond-to(md) {
+      position: static;
+      display: block;
+      padding: 0;
+      background-color: transparent;
+      border-bottom: none;
+      box-shadow: none;
+    }
+  }
+
+  &__links {
+    @include reset-list;
+    @include flex-column(var(--space-1));
+
+    @include respond-to(md) {
+      flex-direction: row;
+      gap: var(--space-2);
+    }
+  }
+
+  &__link {
+    display: block;
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    border-radius: var(--radius-md);
+
+    &:hover {
+      color: var(--color-text);
+      text-decoration: none;
+      background-color: var(--color-surface-muted);
+    }
+
+    &--active,
+    &--active:hover {
+      color: var(--color-primary);
+      background-color: var(--color-primary-soft);
+    }
+  }
+
+  &__actions {
+    @include flex($align: center, $gap: var(--space-2));
+  }
+
+  &__menuButton {
+    @include respond-to(md) {
+      display: none;
+    }
+  }
+}

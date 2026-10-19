@@ -1,0 +1,21 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: z(sticky);
+  @include flex-between;
+  gap: var(--space-4);
+  height: $topbar-height;
+  padding-inline: var(--space-4);
+  background-color: var(--color-surface);
+  border-bottom: $border-width solid var(--color-border);
+
+  @include respond-to(md) {
+    padding-inline: var(--space-6);
+  }
+
+  &__start,
+  &__end {
+    @include flex($align: center, $gap: var(--space-2));
+    min-width: 0;
+  }
+}

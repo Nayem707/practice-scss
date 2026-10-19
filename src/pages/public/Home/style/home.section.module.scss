@@ -1,0 +1,12 @@
+// Shared by every Home section: centered container, vertical rhythm, section heading.
+// Sections tweak spacing via --section-padding-block instead of overriding padding.
+.section {
+  @include container;
+  padding-block: var(--section-padding-block, var(--space-12));
+
+  &__title {
+    margin-bottom: var(--space-6);
+    font-size: var(--font-size-2xl);
+    text-align: center;
+  }
+}

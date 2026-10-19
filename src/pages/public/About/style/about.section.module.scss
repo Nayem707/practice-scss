@@ -1,0 +1,14 @@
+// Page shell shared by every About section: centered container with sections stacked
+// vertically, plus the common section heading.
+.sections {
+  @include container;
+  @include flex-column(var(--space-12));
+  padding-block: var(--space-12);
+}
+
+.section {
+  &__title {
+    margin-bottom: var(--space-5);
+    font-size: var(--font-size-2xl);
+  }
+}

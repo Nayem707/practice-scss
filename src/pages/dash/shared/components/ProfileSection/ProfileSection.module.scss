@@ -1,0 +1,18 @@
+.profileSection {
+  &__form {
+    @include flex-column(var(--space-4));
+  }
+
+  &__fields {
+    display: grid;
+    gap: var(--space-4);
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__actions {
+    @include flex($justify: flex-end);
+  }
+}

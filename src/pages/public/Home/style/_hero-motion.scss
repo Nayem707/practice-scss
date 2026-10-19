@@ -1,0 +1,158 @@
+// Shared motion helpers for the hero's module files.
+//
+// Keyframes are wrapped in mixins because CSS Modules scope `@keyframes` names per file:
+// each module includes only the keyframes it uses, so names stay local and nothing is
+// emitted twice. Every keyframe animates only `transform` and/or `opacity` (compositor-
+// friendly), except `gradient-sweep`, which runs once on entrance.
+//
+// Entrance animations use `both` fill and never set `opacity: 0` in base styles, so content
+// stays visible if animations are disabled. The global reduced-motion rule in
+// src/styles/_reset.scss collapses every animation to its end state.
+@use 'hero-tokens' as *;
+
+/// Staggered entrance. `$step` is the position in the intro sequence.
+@mixin hero-enter($name, $step: 0, $duration: $hero-enter-duration) {
+  animation: $name $duration $hero-ease-out both;
+  animation-delay: $hero-intro-delay + $step * $hero-stagger;
+}
+
+/// Pointer parallax. `--pointer-x` / `--pointer-y` (-1…1) are set on `.hero` by
+/// usePointerParallax; uses the independent `translate` property so it composes with
+/// keyframed `transform`s on the same element.
+@mixin hero-parallax($depth) {
+  translate: calc(var(--pointer-x, 0) * #{$depth}) calc(var(--pointer-y, 0) * #{$depth});
+  transition: translate $hero-parallax-duration $hero-ease-out;
+}
+
+/// Hover styles only for devices that can hover (avoids sticky hover on touch).
+@mixin can-hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Keyframes
+// ---------------------------------------------------------------------------
+@mixin keyframes-fade-up {
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@mixin keyframes-reveal-up {
+  @keyframes reveal-up {
+    from {
+      transform: translate3d(0, 110%, 0);
+    }
+    to {
+      transform: none;
+    }
+  }
+}
+
+@mixin keyframes-scale-in {
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.88);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@mixin keyframes-gradient-sweep {
+  @keyframes gradient-sweep {
+    from {
+      background-position: 100% 50%;
+    }
+    to {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+@mixin keyframes-pulse-ring {
+  @keyframes pulse-ring {
+    from {
+      opacity: 0.7;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(2.6);
+    }
+  }
+}
+
+@mixin keyframes-float {
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(var(--float-rotate, 0deg));
+    }
+    50% {
+      transform: translate3d(0, var(--float-distance, -0.75rem), 0)
+        rotate(calc(var(--float-rotate, 0deg) + var(--float-spin, 6deg)));
+    }
+  }
+}
+
+@mixin keyframes-orbit {
+  @keyframes orbit {
+    from {
+      transform: rotateX(var(--ring-tilt-x)) rotateY(var(--ring-tilt-y)) rotateZ(0turn);
+    }
+    to {
+      transform: rotateX(var(--ring-tilt-x)) rotateY(var(--ring-tilt-y)) rotateZ(1turn);
+    }
+  }
+}
+
+@mixin keyframes-twinkle {
+  @keyframes twinkle {
+    0%,
+    100% {
+      opacity: 0.15;
+      transform: scale(0.6);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1);
+    }
+  }
+}
+
+@mixin keyframes-drift {
+  @keyframes drift {
+    from {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(var(--drift-x, 4rem), var(--drift-y, 2rem), 0) scale(1.15);
+    }
+  }
+}
+
+@mixin keyframes-grow-y {
+  @keyframes grow-y {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: none;
+    }
+  }
+}

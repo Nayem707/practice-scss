@@ -1,0 +1,129 @@
+// Injected into every SCSS file (see vite.config.ts). Must never emit CSS on its own.
+@use 'sass:map';
+@use 'sass:meta';
+@use 'variables' as *;
+
+/// Returns the z-index for a named layer.
+@function z($layer) {
+  @if not map.has-key($z-index, $layer) {
+    @error 'Unknown z-index layer `#{$layer}`. Available: #{map.keys($z-index)}';
+  }
+  @return map.get($z-index, $layer);
+}
+
+/// Mobile-first media query: styles apply from `$breakpoint` upwards.
+/// @example scss
+///   .grid { display: block; @include respond-to(md) { display: grid; } }
+@mixin respond-to($breakpoint) {
+  @if not map.has-key($breakpoints, $breakpoint) {
+    @error 'Unknown breakpoint `#{$breakpoint}`. Available: #{map.keys($breakpoints)}';
+  }
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+/// Emits a theme palette map ($theme-light / $theme-dark) as custom properties.
+/// Used by _theme.scss for the global themes, and by components that pin a theme
+/// locally (e.g. the always-dark Home hero) so nested components follow it.
+@mixin theme-palette($palette) {
+  @each $key, $value in $palette {
+    --#{$key}: #{meta.inspect($value)};
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Flex helpers
+// ---------------------------------------------------------------------------
+@mixin flex($direction: row, $align: stretch, $justify: flex-start, $gap: null) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  @if $gap {
+    gap: $gap;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-column($gap: null) {
+  display: flex;
+  flex-direction: column;
+  @if $gap {
+    gap: $gap;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Layout & accessibility helpers
+// ---------------------------------------------------------------------------
+@mixin container {
+  width: 100%;
+  max-width: $container-max-width;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+
+  @include respond-to(md) {
+    padding-inline: var(--space-6);
+  }
+}
+
+@mixin focus-ring {
+  outline: $focus-ring-width solid var(--color-focus);
+  outline-offset: $focus-ring-offset;
+}
+
+@mixin focus-visible {
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@mixin truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin reset-button {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}

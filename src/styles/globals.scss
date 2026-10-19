@@ -1,0 +1,6 @@
+// Global stylesheet entry — imported once from main.tsx.
+// _variables and _mixins are injected automatically via vite.config.ts.
+@use 'reset';
+@use 'theme';
+@use 'typography';
+@use 'utilities';

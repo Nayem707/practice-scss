@@ -1,0 +1,205 @@
+// Design tokens. This file is injected into every SCSS file (see vite.config.ts),
+// so it must only declare variables — never emit CSS.
+//
+// Themeable tokens (colors, spacing, radii, typography, motion) are declared as maps
+// here and emitted as CSS custom properties by _theme.scss. Components consume them
+// via var(--…). Values needed at compile time (breakpoints, z-index, fixed component
+// dimensions used in calc/media queries) stay as SCSS variables.
+
+// ---------------------------------------------------------------------------
+// Custom-property token maps → emitted as --{prefix}-{key}
+// ---------------------------------------------------------------------------
+$spacing: (
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 2.5rem,
+  12: 3rem,
+  16: 4rem,
+);
+
+$radii: (
+  sm: 0.25rem,
+  md: 0.5rem,
+  lg: 0.75rem,
+  xl: 1rem,
+  full: 9999px,
+);
+
+$font-families: (
+  base: (
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    'Helvetica Neue',
+    Arial,
+    sans-serif,
+  ),
+  mono: (
+    ui-monospace,
+    'SFMono-Regular',
+    Consolas,
+    monospace,
+  ),
+);
+
+$font-sizes: (
+  xs: 0.75rem,
+  sm: 0.875rem,
+  md: 1rem,
+  lg: 1.125rem,
+  xl: 1.25rem,
+  2xl: 1.5rem,
+  3xl: 2rem,
+  4xl: 2.75rem,
+);
+
+$font-weights: (
+  regular: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+);
+
+$line-heights: (
+  none: 1,
+  tight: 1.2,
+  base: 1.5,
+);
+
+$transitions: (
+  fast: 150ms ease,
+  base: 250ms ease,
+);
+
+// Theme palettes → emitted as --{key} under [data-theme]
+$theme-light: (
+  color-bg: #f7f8fa,
+  color-surface: #ffffff,
+  color-surface-muted: #f1f3f6,
+  color-border: #e2e5ea,
+  color-text: #111827,
+  color-text-muted: #5b6474,
+  color-focus: #4f46e5,
+  color-primary: #4f46e5,
+  color-primary-hover: #4338ca,
+  color-primary-soft: #eef2ff,
+  color-on-primary: #ffffff,
+  color-danger: #dc2626,
+  color-danger-hover: #b91c1c,
+  color-danger-soft: #fef2f2,
+  color-on-danger: #ffffff,
+  color-success: #15803d,
+  color-success-soft: #f0fdf4,
+  color-warning: #b45309,
+  color-warning-soft: #fffbeb,
+  color-info: #0369a1,
+  color-info-soft: #f0f9ff,
+  color-overlay: rgb(17 24 39 / 50%),
+  shadow-sm: 0 1px 2px rgb(17 24 39 / 6%),
+  shadow-md: 0 4px 12px rgb(17 24 39 / 8%),
+  shadow-lg: 0 16px 40px rgb(17 24 39 / 16%),
+);
+
+$theme-dark: (
+  color-bg: #0b0f17,
+  color-surface: #131926,
+  color-surface-muted: #1b2231,
+  color-border: #273044,
+  color-text: #e6e9ef,
+  color-text-muted: #9aa3b5,
+  color-focus: #818cf8,
+  color-primary: #6366f1,
+  color-primary-hover: #818cf8,
+  color-primary-soft: #1e1b4b,
+  color-on-primary: #ffffff,
+  color-danger: #ef4444,
+  color-danger-hover: #f87171,
+  color-danger-soft: #3b1212,
+  color-on-danger: #ffffff,
+  color-success: #4ade80,
+  color-success-soft: #0f2a1a,
+  color-warning: #fbbf24,
+  color-warning-soft: #2e2208,
+  color-info: #38bdf8,
+  color-info-soft: #0b2536,
+  color-overlay: rgb(0 0 0 / 60%),
+  shadow-sm: 0 1px 2px rgb(0 0 0 / 40%),
+  shadow-md: 0 4px 12px rgb(0 0 0 / 45%),
+  shadow-lg: 0 16px 40px rgb(0 0 0 / 55%),
+);
+
+// ---------------------------------------------------------------------------
+// Compile-time tokens
+// ---------------------------------------------------------------------------
+
+// Breakpoints (mobile-first, min-width) — keep in sync with BREAKPOINTS in src/config/constants.ts
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+$z-index: (
+  base: 1,
+  dropdown: 100,
+  sticky: 200,
+  overlay: 300,
+  drawer: 350,
+  modal: 400,
+);
+
+// Borders & focus
+$border-width: 1px;
+$stats-card-accent-width: 3px;
+$focus-ring-width: 2px;
+$focus-ring-offset: 2px;
+
+// States & motion
+$opacity-disabled: 0.6;
+$spinner-duration: 800ms;
+
+// Layout dimensions
+$container-max-width: 1200px;
+$content-max-width: 72rem;
+$prose-max-width: 40rem;
+$navbar-height: 4rem;
+$topbar-height: 4rem;
+$sidebar-width: 16rem;
+$auth-card-max-width: 26rem;
+$page-loader-min-height: 40vh;
+$hero-image-max-width: 24rem;
+
+// Control sizes (Button / Input heights)
+$control-height-sm: 2rem;
+$control-height-md: 2.5rem;
+$control-height-lg: 3rem;
+
+// Icon sizes
+$icon-size-sm: 1rem;
+$icon-size-md: 1.25rem;
+$icon-size-lg: 1.5rem;
+$icon-size-xl: 3rem;
+$logo-size: 2rem;
+
+// Loader
+$loader-size-sm: 1rem;
+$loader-size-md: 2rem;
+$loader-size-lg: 3rem;
+$loader-stroke-sm: 2px;
+$loader-stroke-md: 3px;
+$loader-stroke-lg: 4px;
+
+// Modal widths
+$modal-width-sm: 24rem;
+$modal-width-md: 32rem;
+$modal-width-lg: 48rem;
+
+// Display type
+$display-font-size: 5.5rem;

@@ -1,0 +1,36 @@
+.statsCard {
+  height: 100%;
+  border-top: $stats-card-accent-width solid var(--dash-accent, var(--color-primary));
+
+  &__label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__value {
+    margin-block: var(--space-2);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+  }
+
+  &__change {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+
+    &--up {
+      color: var(--color-success);
+    }
+
+    &--down {
+      color: var(--color-danger);
+    }
+  }
+
+  &__icon {
+    @include square($icon-size-sm);
+  }
+}

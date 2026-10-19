@@ -1,0 +1,12 @@
+.headerSection {
+  text-align: center;
+
+  &__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  &__subtitle {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+  }
+}

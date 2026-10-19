@@ -1,0 +1,18 @@
+.pageHeader {
+  @include flex($align: flex-end, $justify: space-between, $gap: var(--space-4));
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+
+  &__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  &__description {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+  }
+
+  &__actions {
+    @include flex($gap: var(--space-2));
+  }
+}

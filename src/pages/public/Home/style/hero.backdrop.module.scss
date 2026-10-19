@@ -1,0 +1,131 @@
+@use 'sass:list';
+@use 'hero-tokens' as *;
+@use 'hero-motion' as *;
+
+@include keyframes-drift;
+@include keyframes-twinkle;
+
+// Particle field: (left, top, size, delay, duration). Fixed values keep the build
+// deterministic and avoid a JS-generated list.
+$particles: (
+  (8%, 22%, 2px, 0s, 5s),
+  (14%, 68%, 3px, 1.2s, 6s),
+  (22%, 12%, 2px, 2.4s, 4.5s),
+  (29%, 84%, 2px, 0.6s, 5.5s),
+  (37%, 38%, 1px, 3s, 4s),
+  (44%, 8%, 2px, 1.8s, 6.5s),
+  (52%, 92%, 3px, 0.3s, 5s),
+  (58%, 30%, 2px, 2.1s, 4.8s),
+  (64%, 62%, 1px, 1s, 5.2s),
+  (71%, 16%, 3px, 2.7s, 6s),
+  (77%, 78%, 2px, 0.9s, 4.2s),
+  (83%, 44%, 2px, 1.5s, 5.8s),
+  (89%, 10%, 1px, 3.3s, 4.6s),
+  (93%, 70%, 2px, 0.4s, 6.2s),
+  (4%, 48%, 1px, 2.2s, 5.4s),
+  (48%, 54%, 1px, 3.6s, 4.4s)
+);
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(110% 70% at 75% -10%, rgb(67 56 202 / 45%), transparent 60%),
+    radial-gradient(80% 60% at -10% 110%, rgb(8 145 178 / 25%), transparent 60%),
+    linear-gradient(180deg, $hero-bg 0%, $hero-bg-raised 55%, $hero-bg 100%);
+
+  // Fine grid, faded out towards the edges so it reads as depth, not pattern.
+  &__grid {
+    position: absolute;
+    inset: -2rem;
+    background-image:
+      linear-gradient($hero-line 1px, transparent 1px),
+      linear-gradient(90deg, $hero-line 1px, transparent 1px);
+    background-size: 3.5rem 3.5rem;
+    mask-image: radial-gradient(ellipse 65% 55% at 62% 42%, #000 20%, transparent 75%);
+    @include hero-parallax(-6px);
+  }
+
+  // Soft light sources. Radial gradients are already soft, so no `filter: blur()`
+  // is needed; only `transform` animates.
+  &__aurora {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.7;
+    will-change: transform;
+    animation: drift 22s $hero-ease-in-out infinite alternate;
+
+    &--indigo {
+      --drift-x: -5rem;
+      --drift-y: 3rem;
+      top: -14rem;
+      right: -10rem;
+      @include square(40rem);
+      background: radial-gradient(circle, rgb(99 102 241 / 55%), transparent 65%);
+    }
+
+    &--cyan {
+      --drift-x: 6rem;
+      --drift-y: -3rem;
+      bottom: -18rem;
+      left: -12rem;
+      @include square(38rem);
+      background: radial-gradient(circle, rgb(34 211 238 / 28%), transparent 65%);
+      animation-duration: 28s;
+    }
+
+    &--violet {
+      --drift-x: -3rem;
+      --drift-y: -4rem;
+      top: 30%;
+      right: 18%;
+      @include square(24rem);
+      background: radial-gradient(circle, rgb(192 132 252 / 30%), transparent 65%);
+      animation-duration: 18s;
+      animation-direction: alternate-reverse;
+    }
+  }
+
+  &__particles {
+    position: absolute;
+    inset: 0;
+    @include hero-parallax(10px);
+  }
+
+  &__particle {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    animation: twinkle 5s ease-in-out infinite both;
+
+    @each $particle in $particles {
+      $i: list.index($particles, $particle);
+
+      &:nth-child(#{$i}) {
+        left: list.nth($particle, 1);
+        top: list.nth($particle, 2);
+        @include square(list.nth($particle, 3));
+        animation-delay: list.nth($particle, 4);
+        animation-duration: list.nth($particle, 5);
+      }
+    }
+  }
+
+  &__vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 80% at 50% 45%, transparent 55%, rgb(0 0 0 / 55%));
+  }
+
+  &__horizon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(129 140 248 / 55%), transparent);
+  }
+}

@@ -1,0 +1,32 @@
+.breadcrumbs {
+  &__list {
+    @include reset-list;
+    @include flex($align: center, $gap: var(--space-1));
+    flex-wrap: wrap;
+    font-size: var(--font-size-sm);
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  &__separator {
+    @include square($icon-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__link {
+    color: var(--color-text-muted);
+
+    &:hover {
+      color: var(--color-text);
+    }
+  }
+
+  &__current {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+  }
+}

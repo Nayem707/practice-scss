@@ -1,0 +1,71 @@
+// The block element is the full-screen overlay; the dialog sits inside it.
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: z(modal);
+  @include flex-center;
+  padding: var(--space-4);
+  background-color: var(--color-overlay);
+  animation: modal-fade-in var(--transition-fast);
+
+  &__dialog {
+    @include flex-column;
+    width: 100%;
+    max-height: calc(100vh - var(--space-8));
+    background-color: var(--color-surface);
+    border: $border-width solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--sm {
+      max-width: $modal-width-sm;
+    }
+
+    &--md {
+      max-width: $modal-width-md;
+    }
+
+    &--lg {
+      max-width: $modal-width-lg;
+    }
+  }
+
+  &__header {
+    @include flex($align: flex-start, $justify: space-between, $gap: var(--space-4));
+    padding: var(--space-5) var(--space-5) var(--space-3);
+  }
+
+  &__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__description {
+    margin-top: var(--space-1);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__body {
+    padding: 0 var(--space-5) var(--space-5);
+    overflow-y: auto;
+  }
+
+  &__footer {
+    @include flex($justify: flex-end, $gap: var(--space-2));
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--color-surface-muted);
+    border-top: $border-width solid var(--color-border);
+  }
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+}

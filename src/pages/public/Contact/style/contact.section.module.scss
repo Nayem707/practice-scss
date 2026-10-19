@@ -1,0 +1,13 @@
+// Page shell shared by every Contact section: centered container, stacked on mobile,
+// intro and form side by side from the lg breakpoint.
+.sections {
+  @include container;
+  display: grid;
+  gap: var(--space-10);
+  padding-block: var(--space-12);
+
+  @include respond-to(lg) {
+    grid-template-columns: 2fr 3fr;
+    align-items: start;
+  }
+}

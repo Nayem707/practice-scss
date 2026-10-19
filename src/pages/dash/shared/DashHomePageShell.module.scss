@@ -1,0 +1,19 @@
+.dashHomePageShell {
+  &__content {
+    @include flex-column(var(--space-6));
+  }
+
+  &__stats {
+    @include reset-list;
+    display: grid;
+    gap: var(--space-4);
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(xl) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

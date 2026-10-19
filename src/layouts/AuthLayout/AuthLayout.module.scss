@@ -1,0 +1,45 @@
+.authLayout {
+  position: relative;
+  @include flex-center;
+  min-height: 100vh;
+  padding: var(--space-8) var(--space-4);
+  background:
+    radial-gradient(circle at top, var(--color-primary-soft), transparent 60%), var(--color-bg);
+
+  &__themeToggle {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+  }
+
+  &__main {
+    @include flex-column(var(--space-6));
+    align-items: center;
+    width: 100%;
+    max-width: $auth-card-max-width;
+  }
+
+  &__brand {
+    @include flex-column(var(--space-2));
+    align-items: center;
+    text-align: center;
+  }
+
+  &__tagline {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  &__card {
+    width: 100%;
+    padding: var(--space-8) var(--space-5);
+    background-color: var(--color-surface);
+    border: $border-width solid var(--color-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+
+    @include respond-to(sm) {
+      padding-inline: var(--space-8);
+    }
+  }
+}

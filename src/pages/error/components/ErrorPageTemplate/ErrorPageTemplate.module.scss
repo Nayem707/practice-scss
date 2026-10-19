@@ -1,0 +1,51 @@
+// Pages override `--error-accent` to tint the icon and status code.
+.errorPage {
+  @include flex-column(var(--space-4));
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  background-color: var(--color-bg);
+
+  &__icon {
+    @include square($icon-size-xl);
+    color: var(--error-accent, var(--color-primary));
+  }
+
+  &__code {
+    font-size: $display-font-size;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-none);
+    color: var(--error-accent, var(--color-primary));
+  }
+
+  &__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  &__message {
+    max-width: $prose-max-width;
+    color: var(--color-text-muted);
+  }
+
+  &__details {
+    width: 100%;
+    max-width: $prose-max-width;
+    margin: 0;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-xs);
+    text-align: left;
+    white-space: pre-wrap;
+    background-color: var(--color-surface-muted);
+    border: $border-width solid var(--color-border);
+    border-radius: var(--radius-md);
+    overflow: auto;
+  }
+
+  &__actions {
+    @include flex($justify: center, $gap: var(--space-3));
+    flex-wrap: wrap;
+    margin-top: var(--space-2);
+  }
+}

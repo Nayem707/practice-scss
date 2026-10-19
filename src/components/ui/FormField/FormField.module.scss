@@ -1,0 +1,31 @@
+.formField {
+  @include flex-column(var(--space-1));
+
+  &__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+
+    &--hidden {
+      @include visually-hidden;
+    }
+  }
+
+  &__required {
+    margin-left: var(--space-1);
+    color: var(--color-danger);
+  }
+
+  &__helper,
+  &__error {
+    font-size: var(--font-size-xs);
+  }
+
+  &__helper {
+    color: var(--color-text-muted);
+  }
+
+  &__error {
+    color: var(--color-danger);
+  }
+}

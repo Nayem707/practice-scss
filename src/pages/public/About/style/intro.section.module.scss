@@ -1,0 +1,13 @@
+.introSection {
+  @include flex-column(var(--space-4));
+  max-width: $prose-max-width;
+
+  &__title {
+    font-size: var(--font-size-3xl);
+  }
+
+  &__paragraph {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-muted);
+  }
+}

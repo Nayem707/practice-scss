@@ -1,0 +1,35 @@
+.featuresSection {
+  &__grid {
+    @include reset-list;
+    display: grid;
+    gap: var(--space-5);
+
+    @include respond-to(sm) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &__card {
+    height: 100%;
+  }
+
+  &__icon {
+    @include square($icon-size-lg);
+    margin-bottom: var(--space-3);
+    color: var(--color-primary);
+  }
+
+  &__title {
+    margin-bottom: var(--space-2);
+    font-size: var(--font-size-md);
+  }
+
+  &__text {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+}

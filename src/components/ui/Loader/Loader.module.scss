@@ -1,0 +1,44 @@
+.loader {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &__spinner {
+    display: inline-block;
+    border-style: solid;
+    border-color: var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: var(--radius-full);
+    animation: loader-spin $spinner-duration linear infinite;
+
+    &--sm {
+      @include square($loader-size-sm);
+      border-width: $loader-stroke-sm;
+    }
+
+    &--md {
+      @include square($loader-size-md);
+      border-width: $loader-stroke-md;
+    }
+
+    &--lg {
+      @include square($loader-size-lg);
+      border-width: $loader-stroke-lg;
+    }
+
+    &--inherit {
+      border-color: currentColor;
+      border-top-color: transparent;
+    }
+  }
+
+  &__label {
+    @include visually-hidden;
+  }
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
